@@ -1,0 +1,2 @@
+0 8 * * 2,3,4,5,6 getTimeFiles.py | parseTimeTracking ~/time_tracking/daily.png
+0 8 * * 1 getTimeFiles.py -f 7 | parseTimeTracking ~/time_tracking/weekly.png
