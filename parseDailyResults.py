@@ -21,7 +21,7 @@ def parse_daily_results(filename):
 
 # Wed, 18 Oct 2017 03:55:17 +0100 : bonana
 def parse_line(line):
-    parts = line.strip().rsplit(':', 1)
+    parts = line.strip().split(' : ', 1)
     date = parse(parts[0].strip())
     task = parts[1].strip()
     return (date, task)
