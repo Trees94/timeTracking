@@ -14,7 +14,7 @@ def parse_daily_results(filename):
         record_lines = f.readlines()
         records += [parse_line(line) for line in record_lines]
 
-    times = time_deltas(list(filter(lambda x: x[1] != 'Interrupt', records)))
+    times = time_deltas(list(filter(lambda x: 'Interrupt' not in x[1], records)))
     aggregate_times = aggregate_deltas(times)
     return aggregate_times
 
@@ -54,11 +54,10 @@ def aggregate_deltas(time_deltas):
     aggregates = defaultdict(lambda: timedelta())
     for delta in time_deltas:
         aggregates[delta[0]] += delta[1]
-    
+
     return aggregates
 
 
 if __name__=="__main__":
     aggregates = parse_daily_results(sys.stdin.readlines()[0])
     generate_report(aggregates)
-
