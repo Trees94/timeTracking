@@ -2,8 +2,9 @@
 from datetime import datetime, date, timedelta
 import os
 import argparse
+import constants
 
-FILEPATH = '/home/local/ANT/tomrees/time_tracking/{year}/{month}/{day}-timeTracking.md'
+FILEPATH = constants.TIME_TRACKING_DIR + '{year}/{month}/{day}-timeTracking.md'
 
 def main():
     args = parse_args()
