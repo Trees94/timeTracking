@@ -3,6 +3,7 @@ from collections import defaultdict
 from parseDailyResults import parse_daily_results, generate_report
 from datetime import timedelta
 import sys
+import pprint
 
 
 def main():
@@ -13,6 +14,7 @@ def main():
         for key in daily_aggregates.keys():
             aggregates[key] += daily_aggregates[key]
 
+    pprint.pprint(aggregates)
     generate_report(aggregates)
 
 if __name__=="__main__":
