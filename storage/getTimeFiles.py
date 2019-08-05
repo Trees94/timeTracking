@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 from datetime import datetime, date, timedelta
-import os
+import os, sys
 import argparse
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import constants
 
 FILEPATH = constants.TIME_TRACKING_DIR + '{year}/{month}/{day}-timeTracking.md'

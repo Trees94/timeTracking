@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import pprint
 from dateutil.parser import parse
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -14,7 +15,21 @@ def parse_daily_results(filename):
         record_lines = f.readlines()
         records += [parse_line(line) for line in record_lines]
 
-    times = time_deltas(list(filter(lambda x: 'Interrupt' not in x[1], records)))
+    fixed_records = []
+    for index, entry in enumerate(records):
+        if not entry[1]:
+            if index > 1:
+                for i in range(0, index):
+                    print(records[index - i])
+                    if records[index - i][1] and 'AFK' not in records[index -i][1]:
+                        print('HIT!')
+                        fixed_records.append((entry[0], records[index - i][1]))
+        else:
+            fixed_records.append(entry)
+
+    pprint.pprint(fixed_records)
+
+    times = time_deltas(list(filter(lambda x: 'Interrupt' not in x[1], fixed_records)))
     aggregate_times = aggregate_deltas(times)
     return aggregate_times
 
@@ -22,6 +37,8 @@ def parse_daily_results(filename):
 # Wed, 18 Oct 2017 03:55:17 +0100 : bonana
 def parse_line(line):
     parts = line.strip().split(' : ', 1)
+    if len(parts) == 1:
+        return (parse(parts[0][:31]), None)
     date = parse(parts[0].strip())
     task = parts[1].strip()
     return (date, task)
